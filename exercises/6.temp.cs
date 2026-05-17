@@ -1,9 +1,17 @@
 class TemperatureException : Exception
 {
+    public double AttemptedValue { get; }
     public TemperatureException() { }
 
     public TemperatureException(string message)
         : base(message) { }
+    public TemperatureException(
+        string message,
+        double attemptedValue)
+        : base(message)
+    {
+        AttemptedValue = attemptedValue;
+    }
 
     public TemperatureException(string message, Exception inner)
         : base(message, inner) { }
@@ -28,9 +36,9 @@ try
         $"Fahrenheit: {fahrenheit:F2}");
 }
 catch (TemperatureException ex)
-{
-    Console.WriteLine($"Temperature error: {ex.Message}");
-}
+    {
+        Console.WriteLine($"{ex.AttemptedValue} is below absolute zero (minimum: -273.15)");
+    }
 catch (FormatException)
 {
     Console.WriteLine("Please enter a valid number.");
