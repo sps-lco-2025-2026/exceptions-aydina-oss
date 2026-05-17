@@ -1,7 +1,27 @@
+try
+{
+    Console.WriteLine(ReadAndDivide());
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Message: {ex.Message}");
+
+    if (ex.InnerException != null)
+    {
+        Console.WriteLine(
+            $"Inner: {ex.InnerException.Message}");
+    }
+}
 
 int Divide(int a, int b)
-{
-    return a / b;
+{   try
+    {
+        return a / b;
+    }
+    catch (DivideByZeroException ex)
+    {
+        throw new ArgumentException("Denominator cannot be zero.",ex);
+    }
 }
 
 int ReadAndDivide()
